@@ -1,0 +1,11 @@
+url: http://example.com
+baseurl: /blog
+name: Test site
+gems:
+  - octopress-social
+timezone: UTC
+markdown: redcarpet
+twitter:
+  username: imathis
+
+permalink: /:title/
