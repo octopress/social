@@ -39,7 +39,7 @@ module Octopress
       end
 
       def hashtags(item)
-        hashtags = Array(item['hashtag'] || item['hashtags'])
+        hashtags = Array(item['twitter_hashtag'] || item['twitter_hashtags'])
           .map{|h| "##{h.sub('#', '')}" } # ensure hash mark, but not two.
           .join(' ')
       end
