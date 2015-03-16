@@ -123,6 +123,7 @@ link_text:    Google+
 ## TODO:
 
 - Add follow buttons.
+- Add [Google +1 button](https://developers.google.com/+/web/+1button/).
 
 ## Contributing
 
