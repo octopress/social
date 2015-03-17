@@ -1,6 +1,10 @@
 # Octopress Social
 
-Easy social features from Twitter, Facebook, and Google+ with fancy buttons or plain-old links.
+Easy social integrations with Twitter, Facebook, and Google+ with fancy buttons or plain-old links.
+
+[![Build Status](http://img.shields.io/travis/octopress/social.svg)](https://travis-ci.org/octopress/social)
+[![Gem Version](http://img.shields.io/gem/v/octopress-social.svg)](https://rubygems.org/gems/octopress-social)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://octopress.mit-license.org)
 
 ## Installation
 
