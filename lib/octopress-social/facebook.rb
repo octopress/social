@@ -4,6 +4,8 @@ module Octopress
       extend self
 
       DEFAULTS = {
+        'profile_id'        => nil,
+        'app_id'            => nil,
         'layout'            => 'button',
         'action'            => 'like',
         'show_faces'        => false,
@@ -11,7 +13,7 @@ module Octopress
         'colorscheme'       => 'light',
         'kid_directed_site' => false,
         'comment_count'     => 5,
-        'link_text'         => 'Facebook',
+        'share_link_text'   => 'Facebook',
         'profile_link_text' => 'Friend me on Facebook'
       }
 
@@ -20,7 +22,18 @@ module Octopress
       end
 
       def facebook_share_link(site, item)
-        %Q{<a class="facebook-share-link" href="https://www.facebook.com/sharer/sharer.php?u=#{Social.full_url(site, item)}">#{config['link_text']}</a>}
+        url = Social.full_url(site, item)
+        if config['app_id']
+          %Q{<a class="facebook-share-link" href="https://www.facebook.com/dialog/share?
+          app_id=#{config['app_id']}
+          &href=#{url}&redirect_uri=#{url}"
+          target="_blank">#{config['share_link_text']}</a>
+          }
+        else
+          %Q{<a class="facebook-share-link" 
+          href="https://www.facebook.com/sharer/sharer.php?u=#{url}" 
+          target="_blank">#{config['share_link_text']}</a>}
+        end
       end
 
       def facebook_like_button(site, item)

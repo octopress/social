@@ -4,11 +4,11 @@ module Octopress
       extend self
 
       DEFAULTS = {
-        'size' => 'medium',
-        'count_bubble' => false,
-        'link_text' => 'Google+',
+        'size'              => 'medium',
+        'count_bubble'      => false,
+        'share_link_text'   => 'Google+',
         'profile_link_text' => 'Follow on Google+',
-        'width'     => ''
+        'width'             => ''
       }
 
       HEIGHT = {
@@ -22,7 +22,7 @@ module Octopress
       end
 
       def gplus_share_link(site, item)
-        %Q{<a class="g-plus-share-link" href="https://plus.google.com/share?url=#{Social.full_url(site, item)}">#{config['link_text']}</a>}
+        %Q{<a class="g-plus-share-link" href="https://plus.google.com/share?url=#{Social.full_url(site, item)}" target="_blank">#{config['share_link_text']}</a>}
       end
 
       def gplus_one_button(site, item)

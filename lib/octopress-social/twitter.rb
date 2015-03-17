@@ -4,11 +4,11 @@ module Octopress
       extend self
 
       DEFAULTS = {
-        'tweet_message' => ":title by :username - :url :hashtags",
-        'size' => 'normal',
-        'tweet_count' => false,
-        'follow_count' => false,
-        'tweet_link_text' => "Twitter",
+        'tweet_message'     => ":title by :username - :url :hashtags",
+        'size'              => 'normal',
+        'tweet_count'       => false,
+        'follow_count'      => false,
+        'tweet_link_text'   => "Twitter",
         'profile_link_text' => "Follow :username"
       }
 
