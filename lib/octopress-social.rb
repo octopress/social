@@ -37,3 +37,14 @@ Liquid::Template.register_tag('facebook_follow_button', Octopress::Social::Faceb
 Liquid::Template.register_tag('facebook_profile_link', Octopress::Social::Facebook::Tag)
 Liquid::Template.register_tag('facebook_comments', Octopress::Social::Facebook::Tag)
 Liquid::Template.register_tag('facebook_script_tag', Octopress::Social::Facebook::Tag)
+
+if defined? Octopress::Docs
+  Octopress::Docs.add({
+    name:        "Octopress Social",
+    gem:         "octopress-social",
+    version:     Octopress::Social::VERSION,
+    description: "Easy social network integration for Jekyll sites.",
+    path:        File.expand_path(File.join(File.dirname(__FILE__), "../")),
+    source_url:  "https://github.com/octopress/social"
+  })
+end

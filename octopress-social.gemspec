@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Octopress::Social::VERSION
   spec.authors       = ["Brandon Mathis"]
   spec.email         = ["brandon@imathis.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{Easy social network integration for Jekyll sites}
+  spec.description   = %q{Easy social network integration for Jekyll sites}
+  spec.homepage      = "http://github.com/octopress/social"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").grep /(lib|assets|README\.md|CHANGELOG\.md)/
