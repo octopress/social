@@ -7,7 +7,7 @@ module Octopress
         'size' => 'medium',
         'count_bubble' => false,
         'link_text' => 'Google+',
-        'follow_link_text' => 'Follow on Google+',
+        'profile_link_text' => 'Follow on Google+',
         'width'     => ''
       }
 
@@ -22,7 +22,7 @@ module Octopress
       end
 
       def gplus_share_link(site, item)
-        %Q{<a class='g-plus-share-link' href="https://plus.google.com/share?url=#{Social.full_url(site, item)}">#{config['link_text']}</a>}
+        %Q{<a class="g-plus-share-link" href="https://plus.google.com/share?url=#{Social.full_url(site, item)}">#{config['link_text']}</a>}
       end
 
       def gplus_one_button(site, item)
@@ -37,8 +37,8 @@ module Octopress
         %Q{<div class="g-follow" #{count('follow')} #{height} data-href="//plus.google.com/u/0/#{config['userid']}" data-rel="author"></div>}
       end
 
-      def gplus_follow_link(*args)
-        %Q{<a class="g-plus-follow-link" href="//plus.google.com/u/0/#{config['userid']}">#{config['follow_link_text']}</a>}
+      def gplus_profile_link(*args)
+        %Q{<a class="g-plus-profile-link" href="//plus.google.com/u/0/#{config['userid']}">#{config['profile_link_text']}</a>}
       end
 
       def count(type)
@@ -79,7 +79,7 @@ module Octopress
               var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
             })();
           </script>
-        }.gsub(/\s{2,}/, ' ').gsub("\n", '').strip
+        }
       end
 
       class Tag < Liquid::Tag
@@ -93,7 +93,7 @@ module Octopress
           site = context['site']
 
           Octopress::Social::GooglePlus.config(site)
-          Octopress::Social::GooglePlus.send(@tag, site, item)
+          Octopress::Social::GooglePlus.send(@tag, site, item).gsub(/(\s{2,}|\n)/, ' ').strip
         end
       end
     end

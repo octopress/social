@@ -1,6 +1,6 @@
 # Octopress Social
 
-Easy social sharing on Twitter, Facebook, and Google+ with fancy buttons or plain-old links.
+Easy social features from Twitter, Facebook, and Google+ with fancy buttons or plain-old links.
 
 ## Installation
 
@@ -23,53 +23,33 @@ Then add the gem to your Jekyll configuration.
     gems:
       - octopress-social
 
-## Usage
+## Twitter
 
-To use those fancy social buttons, add the script tags for the services
-you use to your site's layout. If you want to use plain-old sharing links, you won't need these.
+To use Twitter's fancy buttons you'll need to add this tag to your site's layout before the closing body tag.
 
 ```
-{% twitter_script_tag %}
-{% facebook_script_tag %}
-{% gplus_script_tag %}
+{% twitter_script_tag %} # Injects Twitter's widget.js.
 ```
 
-Next add the button or link tags. For fancy buttons:
-
+Share options:
 ```
 {% tweet_button %}
+{% tweet_button post %}
+{% tweet_link %}          # tweet with a (no js) link
+```
+
+The tweet button and tweet link will open a new page with a composed tweet in the format in your Twitter configuration, `:title by :username - :url :hashtags`. If you want tweet buttons to show up on post index or archive pages, add the `post` argument to the tweet button tag.
+
+Follow options:
+
+```
 {% twitter_follow_button %}
-
-{% facebook_like_button %}
-{% facebook_send_button %}
-{% facebook_follow_button %}
-
-{% gplus_one_button %}
-{% gplus_share_button %}
-{% gplus_follow_button %}
+{% twitter_profile_link %}
 ```
 
-
-For plain-old privacy-friendly, bandwith-conservative links use these:
-
-```
-{% tweet_link %}
-{% twitter_follow_link %}
-
-{% facebook_share_link %}
-{% facebook_profile_link %}
-
-{% gplus_share_link %}
-{% gplus_follow_link %}
-```
-
-And feel less icky.
-
-## Configuration
+### Twitter Configuration
 
 Configure this plugin in your site's `_config.yml`.
-
-### Twitter
 
 ```yaml
 twitter:
@@ -80,7 +60,7 @@ twitter:
   tweet_message:       ":title by :username - :url :hashtags"
 
   follow_count:        false     # show number of followers
-  follow_link_text:    "Follow :username"
+  profile_link_text:   "Follow :username"
 ```
 
 If you want your default tweet message to include one or more hashtags, you can set
@@ -104,42 +84,95 @@ You can also configure a different default message in your post or page's YAML
 front-matter:
 
 ```
-twitter_default_message: "Yay Jekyll :title by :username - :url :hashtags"
+tweet_message: "Yay Jekyll :title by :username - :url :hashtags"
 ```
 
 Note: This plugin sets the twitter button's "do not track" setting to 'true'. I have
 no intention of making this configurable.
 
-### Facebook
+## Facebook
 
-These configurations are all based on [Facebook's official like button spec](https://developers.facebook.com/docs/plugins/like-button), visit that site for more info.
+To use Facebook's scripted features you'll need to add this tag to your site's layout before the closing body tag.
+
+```
+{% facebook_script_tag %} # Injects Facebook's widget.js.
+```
+
+Sharing options:
+
+```
+{% facebook_like_button %}
+{% facebook_send_button %}   # For private sharing
+{% facebook_share_link %}    # share with a (no js) link
+```
+
+Add Friends and Followers:
+
+```
+{% facebook_follow_button %} # Requires a public profile
+{% facebook_profile_link %}
+```
+
+Embed Facebook comments widget:
+
+```
+{% facebook_comments %}
+```
+
+### Facebook Configuration
+
+These configurations are all based on [Facebook's widget configuration spec](https://developers.facebook.com/docs/plugins/), visit that site for more info.
 
 ```yaml
 facebook:
-  profile_id:                        # for follow button or profile link
-  action:              like          # or recommend
-  share:               false         # also add a share button
-  layout:              button        # choices: standard, box_count, button_count, button
-  show_faces:          false         # Please don't
-  colorscheme:         light         # or dark
+  profile_id:                        # For follow button or profile link
+  action:              like          # Or recommend
+  share:               false         # Also add a share button
+  layout:              button        # Choices: standard, box_count, button_count, button
+  show_faces:          false
+  colorscheme:         light         # Or dark
   kid_directed_site:   false         # Is your site directed at kids under 13?
   link_text:           Facebook      # Text for plain-old link
   profile_link_text:   "Find me on Facebook"
+  comment_count:       5             # Number of facebook comments to show by default
 ```
 
-### Google+
+## Google+
 
-These configurations are based on Google's [+1 button](https://developers.google.com/+/web/+1button/) and [share button](https://developers.google.com/+/web/share/) generators.
+To use Google's fancy buttons, you'll need to add this tag to your site's layout before the closing body tag.
+
+```
+{% gplus_script_tag %} # Injects Google's widget.js.
+```
+
+Sharing:
+
+```
+{% gplus_one_button %}
+{% gplus_share_button %}
+{% gplus_share_link %}   # share with a (no js) link
+```
+
+Following:
+
+```
+{% gplus_follow_button %}
+{% gplus_profile_link %}
+```
+
+### Google+ Configuration
+
+These configurations are based on Google's [web sharing widgets](https://developers.google.com/+/web/+1button/).
 
 ```yaml
 gplus:
-  userid:                         # Add your Google+ userid (for follow button)
+  userid:                         # Your Google+ userid (for follow button or profile link)
   size:              medium       # choices: small, medium, standard, large
   width:                          # Specify width of button
-  share_count:       false        # Show number of shares/+1s
-  follow_count:      false        # SHow numer of followers
+  share_count:       false        # Show number of shares or +1s
+  follow_count:      false        # Show numer of followers
   link_text:         Google+      # Text for plain-old link
-  follow_link_text:  "Follow on Google+"
+  profile_link_text:  "Follow on Google+"
 ```
 
 ## Contributing

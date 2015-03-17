@@ -9,7 +9,7 @@ module Octopress
         'tweet_count' => false,
         'follow_count' => false,
         'tweet_link_text' => "Twitter",
-        'follow_link_text' => "Follow :username"
+        'profile_link_text' => "Follow :username"
       }
 
       def config(site=nil)
@@ -17,7 +17,7 @@ module Octopress
       end
 
       def tweet_link(site, item)
-        %Q{<a href="https://twitter.com/intent/tweet?url=#{Social.full_url(site, item)}&text=#{message(site, item)}" class="twitter-share-link">#{config['tweet_link_text']}</a>}
+        %Q{<a class="twitter-share-link" href="https://twitter.com/intent/tweet?&text=#{message(site, item).strip}" target="_blank">#{config['tweet_link_text']}</a>}
       end
 
       def tweet_button(site, item)
@@ -27,7 +27,7 @@ module Octopress
           #{'data-count="none"' if !config['tweet_count']}
           #{button_message(site, item)}
           data-dnt="true">#{config['tweet_link_text']}</a>
-        }.gsub(/\s{2,}/, ' ').gsub("\n", '').strip
+        }
       end
 
       def username(item={})
@@ -57,19 +57,19 @@ module Octopress
         %Q{data-text="#{message(site, item)}"}
       end
 
-      def follow_link_text
-        config['follow_link_text'].sub(':username', username)
+      def profile_link_text
+        config['profile_link_text'].sub(':username', username)
       end
 
-      def twitter_follow_link(*args)
-        %Q{<a href="https://twitter.com/#{username.sub('@', '')}" class="twitter-follow-link">#{follow_link_text}</a>}
+      def twitter_profile_link(*args)
+        %Q{<a href="https://twitter.com/#{username.sub('@', '')}" class="twitter-follow-link">#{profile_link_text}</a>}
       end
 
       def twitter_follow_button(*args)
         %Q{
           <a href="https://twitter.com/#{username.sub('@', '')}" class="twitter-follow-button" 
-          #{'data-show-count="false"' if !config['follow_count']} data-dnt="true">#{follow_link_text}</a>
-        }.gsub("\n", '').gsub(/\s{2,}/, ' ').strip
+          #{'data-show-count="false"' if !config['follow_count']} data-dnt="true">#{profile_link_text}</a>
+        }
       end
 
       def twitter_script_tag(*args)
@@ -87,7 +87,7 @@ module Octopress
           site = context['site']
 
           Octopress::Social::Twitter.config(site)
-          Octopress::Social::Twitter.send(@tag, site, item)
+          Octopress::Social::Twitter.send(@tag, site, item).gsub(/(\s{2,}|\n)/, ' ').strip
         end
       end
     end
