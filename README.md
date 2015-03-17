@@ -37,18 +37,30 @@ you use to your site's layout. If you want to use plain-old sharing links, you w
 Next add the button or link tags. For fancy buttons:
 
 ```
-{% twitter_button %}
-{% facebook_button %}
-{% gplus_button %}
+{% tweet_button %}
+{% twitter_follow_button %}
+
+{% facebook_like_button %}
+{% facebook_send_button %}
+{% facebook_follow_button %}
+
+{% gplus_one_button %}
+{% gplus_share_button %}
+{% gplus_follow_button %}
 ```
 
 
 For plain-old privacy-friendly, bandwith-conservative links use these:
 
 ```
-{% twitter_link %}
-{% facebook_link %}
-{% gplus_link %}
+{% tweet_link %}
+{% twitter_follow_link %}
+
+{% facebook_share_link %}
+{% facebook_profile_link %}
+
+{% gplus_share_link %}
+{% gplus_follow_link %}
 ```
 
 And feel less icky.
@@ -61,11 +73,14 @@ Configure this plugin in your site's `_config.yml`.
 
 ```yaml
 twitter:
-  username:                # Add your Twitter handle
-  show_count:    true      # vanity by default
-  size:          normal    # large is the other option
-  link_text:     Twitter   # Configure the link text
-  default_message: ":title by :username - :url :hashtags"
+  username:                      # Add your Twitter handle
+  tweet_count:         false     # show number of shares on Twitter
+  size:                normal    # or large
+  tweet_link_text:     Twitter   # Configure the link text
+  tweet_message:       ":title by :username - :url :hashtags"
+
+  follow_count:        false     # show number of followers
+  follow_link_text:    "Follow :username"
 ```
 
 If you want your default tweet message to include one or more hashtags, you can set
@@ -95,35 +110,37 @@ twitter_default_message: "Yay Jekyll :title by :username - :url :hashtags"
 Note: This plugin sets the twitter button's "do not track" setting to 'true'. I have
 no intention of making this configurable.
 
-
 ### Facebook
 
 These configurations are all based on [Facebook's official like button spec](https://developers.facebook.com/docs/plugins/like-button), visit that site for more info.
 
 ```yaml
-action:              like          # or recommend
-share:               false         # also add a share button
-layout:              button_count  # choices: standard, box_count, button_count, button
-show_faces:          false         # Please don't
-colorscheme:         light         # or dark
-kid_directed_site:   false         # Is your site directed at kids under 13?
-link_text:           Facebook      # Text for plain-old link
+facebook:
+  profile_id:                        # for follow button or profile link
+  action:              like          # or recommend
+  share:               false         # also add a share button
+  layout:              button        # choices: standard, box_count, button_count, button
+  show_faces:          false         # Please don't
+  colorscheme:         light         # or dark
+  kid_directed_site:   false         # Is your site directed at kids under 13?
+  link_text:           Facebook      # Text for plain-old link
+  profile_link_text:   "Find me on Facebook"
 ```
 
 ### Google+
 
-These configurations are based on the [offical Google+ share button generator](https://developers.google.com/+/web/share/).
+These configurations are based on Google's [+1 button](https://developers.google.com/+/web/+1button/) and [share button](https://developers.google.com/+/web/share/) generators.
 
 ```yaml
-size:         medium       # choices: large, medium, small
-count_bubble: horizontal   # choices: horizontal, vertical, inline, none
-link_text:    Google+
+gplus:
+  userid:                         # Add your Google+ userid (for follow button)
+  size:              medium       # choices: small, medium, standard, large
+  width:                          # Specify width of button
+  share_count:       false        # Show number of shares/+1s
+  follow_count:      false        # SHow numer of followers
+  link_text:         Google+      # Text for plain-old link
+  follow_link_text:  "Follow on Google+"
 ```
-
-## TODO:
-
-- Add follow buttons.
-- Add [Google +1 button](https://developers.google.com/+/web/+1button/).
 
 ## Contributing
 

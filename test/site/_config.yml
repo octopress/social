@@ -7,5 +7,9 @@ timezone: UTC
 markdown: redcarpet
 twitter:
   username: imathis
+gplus:
+  userid: 108333099634940386315
+facebook:
+  profile_id: zuck
 
 permalink: /:title/

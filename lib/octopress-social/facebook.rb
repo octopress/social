@@ -4,24 +4,25 @@ module Octopress
       extend self
 
       DEFAULTS = {
-        'layout' => 'button_count',
+        'layout' => 'button',
         'action' => 'like',
         'show_faces' => false,
         'share' => false,
         'colorscheme' => 'light',
         'kid_directed_site' => false,
-        'link_text' => "Facebook"
+        'link_text' => "Facebook",
+        'profile_link_text' => "Find me on Facebook"
       }
 
       def config(site=nil)
         @config ||= DEFAULTS.merge(site['facebook'] || {})
       end
 
-      def share_link(site, item)
+      def facebook_share_link(site, item)
         %Q{<a facebook-share-link href="https://www.facebook.com/sharer/sharer.php?u=#{Social.full_url(site, item)}">#{config['link_text']}</a>}
       end
 
-      def like_button(site, item)
+      def facebook_like_button(site, item)
         %Q{<div class="fb-like" 
           data-href="#{Social.full_url(site, item)}"
           #{width}
@@ -34,12 +35,49 @@ module Octopress
         }.gsub("\n", '').gsub(/\s{2,}/, ' ').strip
       end
 
+      def facebook_profile_link(*args)
+        %Q{<a class="facebook-profile-link" href="https://www.facebook.com/#{config['profile_id']}">#{config['profile_link_text']}</a>}
+      end
+
+      def facebook_follow_button(*args)
+        %Q{<div class="fb-follow" 
+          data-href="https://www.facebook.com/#{config['profile_id']}"
+          #{width}
+          data-layout="#{config['layout']}"
+          data-layout="#{config['layout']}"
+          data-action="#{config['action']}"
+          data-colorscheme="#{config['colorscheme']}">
+        </div>}.gsub("\n", '').gsub(/\s{2,}/, ' ').strip
+      end
+
+      def facebook_send_button(site, item)
+        %Q{<div class="fb-send" 
+          data-href="#{Social.full_url(site, item)}"
+          #{width}
+          data-colorscheme="#{config['colorscheme']}"
+          data-kid-directed-site="#{config['kid_directed_site']}"></div>
+        }.gsub("\n", '').gsub(/\s{2,}/, ' ').strip
+      end
+
       def width
         if w = config['width']
           %Q{data-width="#{w}"}
         else
           ''
         end
+      end
+
+      def facebook_script_tag(*args)
+        %Q{
+          <div id="fb-root"></div>
+          <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));</script>
+        }.gsub(/\s{2,}/, '').gsub("\n", '').strip
       end
 
       class Tag < Liquid::Tag
@@ -53,27 +91,7 @@ module Octopress
           site = context['site']
 
           Octopress::Social::Facebook.config(site)
-
-          if @tag == 'facebook_link'
-            Octopress::Social::Facebook.share_link(site, item)
-          else
-            Octopress::Social::Facebook.like_button(site, item)
-          end
-        end
-      end
-
-      class ScriptTag < Liquid::Tag
-        def render(context)
-          %Q{
-          <div id="fb-root"></div>
-          <script>(function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-            fjs.parentNode.insertBefore(js, fjs);
-          }(document, 'script', 'facebook-jssdk'));</script>
-          }.gsub(/\s{2,}/, '').gsub("\n", '').strip
+          Octopress::Social::Facebook.send(@tag, site, item)
         end
       end
     end
