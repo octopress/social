@@ -95,11 +95,15 @@ module Octopress
       end
 
       def facebook_comments(site, item)
-        %Q{<div class="fb-comments" 
-        data-href="#{Social.full_url(site, item)}" 
-        data-numposts="#{config['comment_count']}" 
-        data-colorscheme="#{config['colorscheme']}"
-        ></div>}
+        if item['comments'] != false
+          %Q{<div class="fb-comments" 
+          data-href="#{Social.full_url(site, item)}" 
+          data-numposts="#{config['comment_count']}" 
+          data-colorscheme="#{config['colorscheme']}"
+          ></div>}
+        else
+          ''
+        end
       end
 
       class Tag < Liquid::Tag
