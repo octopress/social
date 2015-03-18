@@ -27,19 +27,28 @@ Then add the gem to your Jekyll configuration.
     gems:
       - octopress-social
 
+## Basics
+
+To integrate these social services, you'll need to add some minimal configurations;
+usually just a username or user id.
+
+All tags respond to context. For example, in a post loop, `{% tweet_button %}` will
+automatically point to the current post. Used outside of a post loop, tags will refer to the current page.
+
 ## Twitter
 
-Configure this plugin in your site's `_config.yml`.
+Configure this plugin in your site's `_config.yml`. You really only need to configure
+`username`, but these are the defaults
 
 ```yaml
 twitter:
   username:                      # Add your Twitter handle
-  tweet_count:         false     # show number of shares on Twitter
-  size:                normal    # or large
+  tweet_count:         false     # Show number of shares on Twitter
+  size:                normal    # Or large
   tweet_link_text:     Twitter   # Configure the link text
-  tweet_message:       ":title by :username - :url :hashtags"
+  tweet_message:       ":title by :username :hashtags - :url" # With Tweet button Twitter add the URL last
 
-  follow_count:        false     # show number of followers
+  follow_count:        false     # Show number of followers
   profile_link_text:   "Follow :username"
 ```
 
@@ -80,11 +89,10 @@ To use Twitter's fancy buttons you'll need to add this tag to your site's layout
 Sharing tags:
 ```
 {% tweet_button %}
-{% tweet_button post %}
-{% tweet_link %}          # tweet with a (no js) link
+{% tweet_link %}          # Tweet with a (no js) link
 ```
 
-The tweet button and tweet link will open a new page with a composed tweet in the format in your Twitter configuration, `:title by :username - :url :hashtags`. If you want tweet buttons to show up on post index or archive pages, add the `post` argument to the tweet button tag.
+The tweet button and tweet link will open a new page with a composed tweet in the format in your Twitter configuration, `:title by :username - :url :hashtags`. 
 
 Follow tags:
 
@@ -97,6 +105,13 @@ Follow tags:
 
 Configure this plugin in your site's `_config.yml`.
 
+You don't need to configure anything to start using this plugin but if you want to
+use the follow button or profile link, you'll need to add your `profile_id`.
+
+To get your `profile_id`, take a section from the url to your profile page `https://www.facebook.com/[profile_id]`.
+
+Here are the defaults:
+
 ```yaml
 facebook:
   app_id:                            # For a nicer (no js) sharing experience
@@ -107,16 +122,22 @@ facebook:
   show_faces:          false
   colorscheme:         light         # Or dark
   kid_directed_site:   false         # Is your site directed at kids under 13?
+
   share_link_text:     Facebook      # Text for plain-old link
   profile_link_text:   "Find me on Facebook"
+
   comment_count:       5             # Number of facebook comments to show by default
+  comments_link_text:     Comments
+  disabled_comments_text: Comments disabled  # Set to '' to output nothing when comments are disabled
 ```
 
 These configurations are all based on [Facebook's widget configuration spec](https://developers.facebook.com/docs/plugins/), visit that site for more info.
 
-To get your `profile_id`, take a section from the url to your profile page `https://www.facebook.com/[profile_id]`.
 
-To get an `app_id` you'll need to [register](https://developers.facebook.com/apps) as a developer and go through the process to create an
+### Facebook APP ID
+
+If you want to use the fancy share link (lets you set default content for the share),
+you'll need to get an `app_id`. For that you'll have to [register](https://developers.facebook.com/apps) as a developer and go through the process to create an
 'app'. This is free and it doesn't mean you're developing software or anything, it's just how Facebook wants to do this. Once you've
 created an app, go to the "Basic settings page" by clicking settings, and then finding the "Basic" link. There you should be able to find
 your App ID.
@@ -148,6 +169,7 @@ Embed Facebook comments widget:
 
 ```
 {% facebook_comments %}
+{% facebook_comments_link %}   # Add a link that jumps right to your comments section.
 ```
 
 ## Google+
@@ -180,7 +202,7 @@ Sharing tags:
 ```
 {% gplus_one_button %}
 {% gplus_share_button %}
-{% gplus_share_link %}   # share with a (no js) link
+{% gplus_share_link %}   # Share with a (no js) link
 ```
 
 Follow tags:
@@ -195,7 +217,10 @@ Follow tags:
 Configure this plugin in your site's `_config.yml` and optionally on each page or post.
 
 ```yaml
-disqus_shortname:          # Your site's disqus identifier
+disqus:
+  shortname:                                       # Your site's disqus identifier
+  comments_link_text: Comments                     # Text label for comments link
+  comments_disabled_link_text: Comments disabled   # Set to '' to not output a comments link when disabled
 ```
 
 In any page or post, you can add these configurations to the YAML front-matter.
@@ -211,27 +236,11 @@ comments: false        # Disable comments for this page or post
 These tags will help you integrate Disqus comments into your site.
 
 ```
-{% disqus_comments %}      # Embed comments on a page
+{% disqus_comments %}       # Embed comments on a page
+{% disqus_comments_link %}  # Add a link that jumps right to your comments section.
 ```
 
-If you want to link directly to the comments section of a post or page, create a link like this:
-
-```
-{% disqus_comments_link %}        # link to the comments section on the current page
-{% disqus_comments_link post %}   # link to the comments section on a post (in the posts loop)
-```
-
-This will generate a link to the page or post with the on page anchor `#disqus_thread` added, linking you directly to the comments
-section.
-
-If you want to show the number of comments in the link, add the following tag to your page layout, somewhere before `</body>`.
-
-```
-{% disqus_count_script %}  # Add script for adding counts to comment links
-```
-
-This tag will find all comments links on the current page and add the comment count. You can configure this link text from your the admin panel on Disqus's site.
-
+Disqus has a script that lets you add comment count to the link, but it's so buggy, I'm not including it because I don't want to deal with the support. You can still add it to your site manually.
 
 ## Contributing
 

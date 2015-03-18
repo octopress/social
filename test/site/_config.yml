@@ -2,6 +2,7 @@ url: http://example.com
 baseurl: /blog
 name: Test site
 gems:
+  - octopress-debugger
   - octopress-social
 timezone: UTC
 markdown: redcarpet
@@ -16,4 +17,5 @@ gplus:
 facebook:
   profile_id: zuck
 
-disqus_shortname: octopress
+disqus:
+  shortname: octopress

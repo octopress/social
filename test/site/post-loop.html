@@ -1,0 +1,12 @@
+---
+layout: default
+title: Cool Page
+twitter_hashtags:
+ - awesome
+ - stuff
+---
+{% for post in site.posts %}
+<h2>{{ post.title }}</h2>
+{% include share.html %}
+{% include comment_links.html %}
+{% endfor %}

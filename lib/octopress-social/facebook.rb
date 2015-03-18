@@ -3,6 +3,8 @@ module Octopress
     module Facebook
       extend self
 
+      attr_accessor :url, :config
+
       DEFAULTS = {
         'profile_id'        => nil,
         'app_id'            => nil,
@@ -14,15 +16,20 @@ module Octopress
         'kid_directed_site' => false,
         'comment_count'     => 5,
         'share_link_text'   => 'Facebook',
-        'profile_link_text' => 'Friend me on Facebook'
+        'profile_link_text' => 'Friend me on Facebook',
+        'comments_link_text' => 'Comments',
+        'disabled_comments_text' => 'Comments disabled'
       }
 
-      def config(site=nil)
+      def set_config(site)
         @config ||= DEFAULTS.merge(site['facebook'] || {})
       end
 
+      def set_url(site, item)
+        @url = Social.full_url(site, item)
+      end
+
       def facebook_share_link(site, item)
-        url = Social.full_url(site, item)
         if config['app_id']
           %Q{<a class="facebook-share-link" href="https://www.facebook.com/dialog/share?
           app_id=#{config['app_id']}
@@ -38,7 +45,7 @@ module Octopress
 
       def facebook_like_button(site, item)
         %Q{<div class="fb-like"
-          data-href="#{Social.full_url(site, item)}"
+          data-href="#{url}"
           #{width}
           data-layout="#{config['layout']}"
           data-action="#{config['action']}"
@@ -66,7 +73,7 @@ module Octopress
 
       def facebook_send_button(site, item)
         %Q{<div class="fb-send" 
-          data-href="#{Social.full_url(site, item)}"
+          data-href="#{url}"
           #{width}
           data-colorscheme="#{config['colorscheme']}"
           data-kid-directed-site="#{config['kid_directed_site']}"></div>
@@ -96,11 +103,23 @@ module Octopress
 
       def facebook_comments(site, item)
         if item['comments'] != false
-          %Q{<div class="fb-comments" 
-          data-href="#{Social.full_url(site, item)}" 
+          %Q{<div class="fb-comments" id="facebook_comments"
+          data-href="#{url}" 
           data-numposts="#{config['comment_count']}" 
           data-colorscheme="#{config['colorscheme']}"
           ></div>}
+        else
+          ''
+        end
+      end
+
+      def facebook_comments_link(site, item)
+        if item['comments'] != false
+          link = (item['context'] == 'page' ? '' : url)
+          link << '#facebook_comments'
+          %Q{<a class="facebook-comments-link" href="#{link}">Comments</a>}
+        elsif !config['disabled_comments_text'].empty?
+          %Q{<span class="facebook-comments-disabled">#{config['disabled_comments_text']}</span>}
         else
           ''
         end
@@ -113,10 +132,11 @@ module Octopress
         end
 
         def render(context)
-          item = context[@input] || context['page']
+          item = Octopress::Social.item(context, @input)
           site = context['site']
 
-          Octopress::Social::Facebook.config(site)
+          Octopress::Social::Facebook.set_url(site, item)
+          Octopress::Social::Facebook.set_config(site)
           Octopress::Social::Facebook.send(@tag, site, item).gsub(/(\s{2,}|\n)/, ' ').strip
         end
       end

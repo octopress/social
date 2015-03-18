@@ -3,8 +3,10 @@ module Octopress
     module Twitter
       extend self
 
+      attr_accessor :url, :config
+
       DEFAULTS = {
-        'tweet_message'     => ":title by :username - :url :hashtags",
+        'tweet_message'     => ":title by :username :hashtags - :url",
         'size'              => 'normal',
         'tweet_count'       => false,
         'follow_count'      => false,
@@ -12,12 +14,16 @@ module Octopress
         'profile_link_text' => "Follow :username"
       }
 
-      def config(site=nil)
-        @config ||= DEFAULTS.merge(site['twitter'] || {})
+      def set_config(site)
+        @config = DEFAULTS.merge(site['twitter'] || {})
+      end
+
+      def set_url(site, item)
+        @url = Social.full_url(site, item)
       end
 
       def tweet_link(site, item)
-        %Q{<a class="twitter-share-link" href="https://twitter.com/intent/tweet?&text=#{message(site, item).strip}" target="_blank">#{config['tweet_link_text']}</a>}
+        %Q{<a class="twitter-share-link" href="https://twitter.com/intent/tweet?&text=#{message(site, item).strip.gsub('#', '%23')}" target="_blank">#{config['tweet_link_text']}</a>}
       end
 
       def tweet_button(site, item)
@@ -25,7 +31,7 @@ module Octopress
           <a href="https://twitter.com/share" class="twitter-share-button" 
           #{'data-size="large"' if config['size'] == 'large'}
           #{'data-count="none"' if !config['tweet_count']}
-          #{button_message(site, item)}
+          #{button_message(site, item).sub(/\s?#{url}/, '')}
           data-dnt="true">#{config['tweet_link_text']}</a>
         }
       end
@@ -48,7 +54,7 @@ module Octopress
         (item['tweet_message'] || config['tweet_message'])
           .sub(':title', item['title'] || '')
           .sub(':username', username(item))
-          .sub(':url', Social.full_url(site, item))
+          .sub(':url', url)
           .sub(':hashtags', hashtags(item))
           .strip
       end
@@ -83,10 +89,11 @@ module Octopress
         end
 
         def render(context)
-          item = context[@input] || context['page']
+          item = Octopress::Social.item(context, @input)
           site = context['site']
 
-          Octopress::Social::Twitter.config(site)
+          Octopress::Social::Twitter.set_config(site)
+          Octopress::Social::Twitter.set_url(site, item)
           Octopress::Social::Twitter.send(@tag, site, item).gsub(/(\s{2,}|\n)/, ' ').strip
         end
       end

@@ -89,7 +89,7 @@ module Octopress
         end
 
         def render(context)
-          item = context[@input] || context['page']
+          item = Octopress::Social.item(context, @input)
           site = context['site']
 
           Octopress::Social::GooglePlus.config(site)

@@ -17,6 +17,19 @@ module Octopress
 
       File.join(root, site['baseurl'], item['url'].sub('index.html', ''))
     end
+
+    def item(context, input)
+      if item = context[input]
+        item['context'] = input
+      elsif item = context['post']
+        item['context'] = 'post'
+      else
+        item = context['page']
+        item['context'] = 'page'
+      end
+
+      item
+    end
   end
 end
 
@@ -37,9 +50,9 @@ Liquid::Template.register_tag('facebook_send_button', Octopress::Social::Faceboo
 Liquid::Template.register_tag('facebook_follow_button', Octopress::Social::Facebook::Tag)
 Liquid::Template.register_tag('facebook_profile_link', Octopress::Social::Facebook::Tag)
 Liquid::Template.register_tag('facebook_comments', Octopress::Social::Facebook::Tag)
+Liquid::Template.register_tag('facebook_comments_link', Octopress::Social::Facebook::Tag)
 Liquid::Template.register_tag('facebook_script_tag', Octopress::Social::Facebook::Tag)
 Liquid::Template.register_tag('disqus_comments', Octopress::Social::Disqus::Tag)
-Liquid::Template.register_tag('disqus_count_script', Octopress::Social::Disqus::Tag)
 Liquid::Template.register_tag('disqus_comments_link', Octopress::Social::Disqus::Tag)
 
 if defined? Octopress::Docs
