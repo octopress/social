@@ -206,7 +206,7 @@ disqus_title:          # Custom title for comments metadata (defaults to page/po
 comments: false        # Disable comments for this page or post
 ```
 
-### Tags
+### Disqus Tags
 
 These tags will help you integrate Disqus comments into your site.
 
