@@ -5,11 +5,15 @@ gems:
   - octopress-social
 timezone: UTC
 markdown: redcarpet
+permalink: /:title/
+
 twitter:
   username: imathis
+
 gplus:
   userid: 108333099634940386315
+
 facebook:
   profile_id: zuck
 
-permalink: /:title/
+disqus_shortname: octopress

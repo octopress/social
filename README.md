@@ -95,7 +95,7 @@ Follow tags:
 
 ## Facebook
 
-These configurations are all based on [Facebook's widget configuration spec](https://developers.facebook.com/docs/plugins/), visit that site for more info.
+Configure this plugin in your site's `_config.yml`.
 
 ```yaml
 facebook:
@@ -111,6 +111,8 @@ facebook:
   profile_link_text:   "Find me on Facebook"
   comment_count:       5             # Number of facebook comments to show by default
 ```
+
+These configurations are all based on [Facebook's widget configuration spec](https://developers.facebook.com/docs/plugins/), visit that site for more info.
 
 To get your `profile_id`, take a section from the url to your profile page `https://www.facebook.com/[profile_id]`.
 
@@ -148,10 +150,9 @@ Embed Facebook comments widget:
 {% facebook_comments %}
 ```
 
-
 ## Google+
 
-These configurations are based on Google's [web sharing widgets](https://developers.google.com/+/web/+1button/).
+Configure this plugin in your site's `_config.yml`.
 
 ```yaml
 gplus:
@@ -163,6 +164,8 @@ gplus:
   share_link_text:   Google+      # Text for plain-old link
   profile_link_text: "Follow on Google+"
 ```
+
+These configurations are based on Google's [web sharing widgets](https://developers.google.com/+/web/+1button/).
 
 ### Google+ Tags
 
@@ -186,6 +189,49 @@ Follow tags:
 {% gplus_follow_button %}
 {% gplus_profile_link %}
 ```
+
+## Disqus Comments
+
+Configure this plugin in your site's `_config.yml` and optionally on each page or post.
+
+```yaml
+disqus_shortname:          # Your site's disqus identifier
+```
+
+In any page or post, you can add these configurations to the YAML front-matter.
+
+```
+disqus_identifier:     # Unique identifier for this page's comments (defaults to full url)
+disqus_title:          # Custom title for comments metadata (defaults to page/post title)
+comments: false        # Disable comments for this page or post
+```
+
+### Tags
+
+These tags will help you integrate Disqus comments into your site.
+
+```
+{% disqus_comments %}      # Embed comments on a page
+```
+
+If you want to link directly to the comments section of a post or page, create a link like this:
+
+```
+{% disqus_comments_link %}        # link to the comments section on the current page
+{% disqus_comments_link post %}   # link to the comments section on a post (in the posts loop)
+```
+
+This will generate a link to the page or post with the on page anchor `#disqus_thread` added, linking you directly to the comments
+section.
+
+If you want to show the number of comments in the link, add the following tag to your page layout, somewhere before `</body>`.
+
+```
+{% disqus_count_script %}  # Add script for adding counts to comment links
+```
+
+This tag will find all comments links on the current page and add the comment count. You can configure this link text from your the admin panel on Disqus's site.
+
 
 ## Contributing
 
