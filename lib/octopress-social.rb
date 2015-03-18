@@ -5,9 +5,10 @@ module Octopress
   module Social
     extend self
 
-    autoload :Twitter,                'octopress-social/twitter'
-    autoload :Facebook,               'octopress-social/facebook'
-    autoload :GooglePlus,             'octopress-social/google-plus'
+    autoload :Twitter,        'octopress-social/twitter'
+    autoload :Facebook,       'octopress-social/facebook'
+    autoload :GooglePlus,     'octopress-social/google-plus'
+    autoload :Disqus,         'octopress-social/disqus'
     
     def full_url(site, item)
       unless root = site['url']
@@ -37,6 +38,9 @@ Liquid::Template.register_tag('facebook_follow_button', Octopress::Social::Faceb
 Liquid::Template.register_tag('facebook_profile_link', Octopress::Social::Facebook::Tag)
 Liquid::Template.register_tag('facebook_comments', Octopress::Social::Facebook::Tag)
 Liquid::Template.register_tag('facebook_script_tag', Octopress::Social::Facebook::Tag)
+Liquid::Template.register_tag('disqus_comments', Octopress::Social::Disqus::Tag)
+Liquid::Template.register_tag('disqus_count_script', Octopress::Social::Disqus::Tag)
+Liquid::Template.register_tag('disqus_comments_link', Octopress::Social::Disqus::Tag)
 
 if defined? Octopress::Docs
   Octopress::Docs.add({
