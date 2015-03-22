@@ -47,6 +47,7 @@ twitter:
   size:                normal    # Or large
   tweet_link_text:     Twitter   # Configure the link text
   tweet_message:       ":title by :username :hashtags - :url" # With Tweet button Twitter add the URL last
+  embedded_link_color:           # Set link color for embedded tweets
 
   follow_count:        false     # Show number of followers
   profile_link_text:   "Follow :username"
@@ -100,6 +101,23 @@ Follow tags:
 {% twitter_follow_button %}
 {% twitter_profile_link %}
 ```
+
+Embed a tweet:
+
+```
+{% tweet status_url %}Tweet Text{% endtweet %}
+```
+
+This will generate a blockquote, much like this one:
+
+```
+<blockquote class="twitter-tweet" data-link-color="" lang="">
+<p>[Tweet Text]</p>
+<a href="[tweet_url]"> — @[user]</a>
+</blockquote>
+```
+
+If you include the twitter widget.js in your site, this will automatically be replaced with one of Twitter's fancy embedded tweets.
 
 ## Facebook
 
