@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.3.0 (2015-03-21)
+- New: Embeddable tweets with {% tweet %} tag.
+- Fixed: Default tweet message (without configured username) removes 'by' credit.
+- Fixed: Tweets in post loops shared current page instead of post.
+
 ### 1.2.0 (2015-03-18)
 - New: Added Disqus comments link tag.
 - New: Facebook comments link tag.
