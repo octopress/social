@@ -51,9 +51,10 @@ module Octopress
       end
 
       def message(site, item)
+        username_var = (username(item).empty? ? 'by :username' : ':username')
         (item['tweet_message'] || config['tweet_message'])
           .sub(':title', item['title'] || '')
-          .sub(':username', username(item))
+          .sub(username_var, username(item))
           .sub(':url', url)
           .sub(':hashtags', hashtags(item))
           .strip
@@ -82,6 +83,32 @@ module Octopress
         "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>"
       end
 
+      def tweet(site, item, url, content)
+        user = "@#{url.match(/.com\/(.+)?\/status/)[1]}"
+        %Q{<blockquote class="twitter-tweet"
+          data-link-color="#{config['embedded_link_color']}"
+          lang="#{item['lang'] || site['lang']}">
+          <p>#{content}</p>
+          <a href="#{url}"> — #{user}</a>
+          </blockquote>
+        }
+      end
+
+      class Tweet < Liquid::Block
+        def initialize(tag, input, tokens)
+          super
+          @tag = tag.strip
+          @input = input.strip
+        end
+
+        def render(context)
+          content = super(context)
+          site = context['site']
+          item = context['page']
+          Octopress::Social::Twitter.tweet(site, item, @input, content).gsub(/(\s{2,}|\n)/, ' ').strip
+        end
+      end
+
       class Tag < Liquid::Tag
         def initialize(tag, input, tokens)
           @tag = tag.strip
@@ -89,8 +116,8 @@ module Octopress
         end
 
         def render(context)
-          item = Octopress::Social.item(context, @input)
           site = context['site']
+          item = Octopress::Social.item(context, @input)
 
           Octopress::Social::Twitter.set_config(site)
           Octopress::Social::Twitter.set_url(site, item)

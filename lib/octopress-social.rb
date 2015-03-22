@@ -33,6 +33,7 @@ module Octopress
   end
 end
 
+Liquid::Template.register_tag('tweet', Octopress::Social::Twitter::Tweet)
 Liquid::Template.register_tag('tweet_button', Octopress::Social::Twitter::Tag)
 Liquid::Template.register_tag('tweet_link', Octopress::Social::Twitter::Tag)
 Liquid::Template.register_tag('twitter_script_tag', Octopress::Social::Twitter::Tag)
