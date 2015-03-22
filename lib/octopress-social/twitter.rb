@@ -31,7 +31,8 @@ module Octopress
           <a href="https://twitter.com/share" class="twitter-share-button" 
           #{'data-size="large"' if config['size'] == 'large'}
           #{'data-count="none"' if !config['tweet_count']}
-          #{button_message(site, item).sub(/\s?#{url}/, '')}
+          data-url="#{url}"
+          #{button_message(site, item)}
           data-dnt="true">#{config['tweet_link_text']}</a>
         }
       end
@@ -61,7 +62,7 @@ module Octopress
       end
 
       def button_message(site, item)
-        %Q{data-text="#{message(site, item)}"}
+        %Q{data-text="#{message(site, item).sub(/\s?#{url}/, '')}"}
       end
 
       def profile_link_text
