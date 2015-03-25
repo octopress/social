@@ -9,6 +9,7 @@ module Octopress
         'share_subject'       => ':title by :author',
         'share_message'       => ':title by :author - :url',
         'share_link_text'     => 'Email',
+        'share_link_title'    => 'Share via email',
         'contact_link_text'   => 'Email :author',
         'contact_link_title'  => 'Email :author',
         'address'             => nil
@@ -57,7 +58,9 @@ module Octopress
       end
 
       def email_share_link(site, item)
-        %Q{<a class="email-share-link" href="mailto:?subject=#{subject(site, item)}&body=#{message(site, item)}">#{config['share_link_text']}</a>}
+        %Q{<a class="email-share-link" 
+          href="mailto:?subject=#{subject(site, item)}&body=#{message(site, item)}"
+          title="#{config['share_link_title']}">#{config['share_link_text']}</a>}
       end
 
       def email_contact_link(site, item)

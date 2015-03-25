@@ -1,5 +1,5 @@
 module Octopress
   module Social
-    VERSION = "1.4.0"
+    VERSION = "1.4.1"
   end
 end

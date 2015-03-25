@@ -41,16 +41,17 @@ Configure this plugin in your site's `_config.yml`. No configurations are requir
 
 ```yaml
 twitter:
-  username:                      # Add your Twitter handle
-  tweet_count:         false     # Show number of shares on Twitter
-  size:                normal    # Or large
-  tweet_link_text:     Twitter   # Configure the link text
-  tweet_message:       ":title by :username :hashtags - :url" # With Tweet button Twitter add the URL last
-  embedded_link_color:           # Set link color for embedded tweets
+  username:                               # Add your Twitter handle
+  tweet_count:         false              # Show number of shares on Twitter
+  size:                normal             # Or large
+  embedded_link_color:                    # Set link color for embedded tweets
 
-  follow_count:        false     # Show number of followers
+  follow_count:        false              # Show number of followers
+  tweet_message:       ":title by :username :hashtags - :url" # With Tweet button Twitter add the URL last
+  tweet_link_text:     Twitter            # Configure the link text
+  tweet_link_title:    Share on Twitter   # Share link title
   profile_link_text:   Follow :username
-  profile_link_title:  Follow :username on Twitter  # profile link title text
+  profile_link_title:  Follow :username on Twitter  # Profile link title text
 ```
 
 To include hashtags, in your tweet message add them in the YAML front matter of your post or page, like this:
@@ -143,7 +144,7 @@ facebook:
   share_link_text:     Facebook            # Text for plain-old link
   share_link_title:    Share on Facebook   # Share link title text
   profile_link_text:   Friend on Facebook
-  profile_link_title:  Friend on Facebook  # profile link title text
+  profile_link_title:  Friend on Facebook  # Profile link title text
 
   comment_count:       5             # Number of facebook comments to show by default
   comments_link_text:     Comments
@@ -246,6 +247,7 @@ email:
   share_subject:       :title by :author
   share_message:       :title by :author - :url
   share_link_text:     Email
+  share_link_title:    Share via email
   contact_link_text:   Email :author
   contact_link_title:  Email :author
 ```

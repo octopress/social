@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.4.1 (2015-03-24)
+- Fix: Added title attribute for email share link.
+
 ### 1.4.0 (2015-03-24)
 - New: Email sharing and contact tags
 - New: GitHub profile link
