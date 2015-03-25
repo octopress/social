@@ -6,23 +6,28 @@ module Octopress
       attr_accessor :url, :config
 
       DEFAULTS = {
-        'profile_id'        => nil,
-        'app_id'            => nil,
-        'layout'            => 'button',
-        'action'            => 'like',
-        'show_faces'        => false,
-        'share'             => false,
-        'colorscheme'       => 'light',
-        'kid_directed_site' => false,
-        'comment_count'     => 5,
-        'share_link_text'   => 'Facebook',
-        'profile_link_text' => 'Friend me on Facebook',
-        'comments_link_text' => 'Comments',
+        'profile_id'           => nil,
+        'app_id'               => nil,
+        'layout'               => 'button',
+        'action'               => 'like',
+        'show_faces'           => false,
+        'share'                => false,
+        'colorscheme'          => 'light',
+        'kid_directed_site'    => false,
+        'comment_count'        => 5,
+        'share_link_text'      => 'Facebook',
+        'share_link_title'     => 'Share on Facebook',
+        'profile_link_text'    => 'Friend on Facebook',
+        'profile_link_title'   => 'Friend on Facebook',
+        'comments_link_text'   => 'Comments',
         'disabled_comments_text' => 'Comments disabled'
       }
 
       def set_config(site)
-        @config ||= DEFAULTS.merge(site['facebook'] || {})
+        @config ||= begin
+          config = site['octopress_social'] || site
+          DEFAULTS.merge(config['facebook'] || {})
+        end
       end
 
       def set_url(site, item)
@@ -34,12 +39,12 @@ module Octopress
           %Q{<a class="facebook-share-link" href="https://www.facebook.com/dialog/share?
           app_id=#{config['app_id']}
           &href=#{url}&redirect_uri=#{url}"
-          target="_blank">#{config['share_link_text']}</a>
+          title="#{config['share_link_title']}">#{config['share_link_text']}</a>
           }
         else
           %Q{<a class="facebook-share-link" 
           href="https://www.facebook.com/sharer/sharer.php?u=#{url}" 
-          target="_blank">#{config['share_link_text']}</a>}
+          title="#{config['share_link_title']}">#{config['share_link_text']}</a>}
         end
       end
 
@@ -57,7 +62,11 @@ module Octopress
       end
 
       def facebook_profile_link(*args)
-        %Q{<a class="facebook-profile-link" href="https://www.facebook.com/#{config['profile_id']}">#{config['profile_link_text']}</a>}
+        %Q{<a
+          class="facebook-profile-link"
+          href="https://www.facebook.com/#{config['profile_id']}"
+          title="#{config['profile_link_title']}"
+          >#{config['profile_link_text']}</a>}
       end
 
       def facebook_follow_button(*args)

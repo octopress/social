@@ -6,12 +6,16 @@ module Octopress
       attr_accessor :url, :config
 
       DEFAULTS = {
-        'comments_link_text' => 'Comments',
+        'comments_link_text'     => 'Comments',
+        'comments_link_title'    => 'View comments',
         'disabled_comments_text' => 'Comments disabled'
       }
 
       def set_config(site)
-        @config ||= DEFAULTS.merge(site['disqus'] || {})
+        @config ||= begin
+          config = site['octopress_social'] || site
+          DEFAULTS.merge(config['disqus'] || {})
+        end
       end
 
       def set_url(site, item)
@@ -53,7 +57,7 @@ module Octopress
         if item['comments'] != false
           link = (item['context'] == 'page' ? '' : url)
           link << '#disqus_thread'
-          %Q{<a class="disqus-comments-link" href="#{link}">Comments</a>}
+          %Q{<a class="disqus-comments-link" title="#{config['comments_link_title']}" href="#{link}">Comments</a>}
         elsif !config['disabled_comments_text'].empty?
           %Q{<span class="disqus-comments-disabled">#{config['disabled_comments_text']}</span>}
         else

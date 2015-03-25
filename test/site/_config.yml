@@ -7,6 +7,7 @@ gems:
 timezone: UTC
 markdown: redcarpet
 permalink: /:title/
+author: Guy McDude
 
 twitter:
   username: imathis
@@ -19,3 +20,9 @@ facebook:
 
 disqus:
   shortname: octopress
+
+email:
+  address: test@example.com
+
+github:
+  username: imathis

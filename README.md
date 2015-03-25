@@ -1,6 +1,6 @@
 # Octopress Social
 
-Easy social integrations with Twitter, Facebook, and Google+ with fancy buttons or plain-old links.
+Easy social integrations with Twitter, Facebook, Google+, Email and GitHub on any Jekyll site.
 
 [![Build Status](http://img.shields.io/travis/octopress/social.svg)](https://travis-ci.org/octopress/social)
 [![Gem Version](http://img.shields.io/gem/v/octopress-social.svg)](https://rubygems.org/gems/octopress-social)
@@ -29,16 +29,15 @@ Then add the gem to your Jekyll configuration.
 
 ## Basics
 
-To integrate these social services, you'll need to add some minimal configurations;
-usually just a username or user id.
+All configuration for this plugin is optional. Some features, like follow buttons or comment tags require username. Other than that all configurations are only necessary if you want to modify the output of the tags.
 
-All tags respond to context. For example, in a post loop, `{% tweet_button %}` will
-automatically point to the current post. Used outside of a post loop, tags will refer to the current page.
+Configurations are set in your site's `_config.yml`. If for some reason these configurations conflict with another plugin, you can set them under the `octopress_social` key.
+
+All tags respond to context. For example, in a post loop, `{% tweet_button %}` will automatically point to the current post. Used outside of a post loop, tags will refer to the current page.
 
 ## Twitter
 
-Configure this plugin in your site's `_config.yml`. You really only need to configure
-`username`, but these are the defaults
+Configure this plugin in your site's `_config.yml`. No configurations are required, just add your username if you want to use follow buttons or be mentioned in tweets. Here are the configuration defaults.
 
 ```yaml
 twitter:
@@ -50,7 +49,8 @@ twitter:
   embedded_link_color:           # Set link color for embedded tweets
 
   follow_count:        false     # Show number of followers
-  profile_link_text:   "Follow :username"
+  profile_link_text:   Follow :username
+  profile_link_title:  Follow :username on Twitter  # profile link title text
 ```
 
 To include hashtags, in your tweet message add them in the YAML front matter of your post or page, like this:
@@ -123,8 +123,7 @@ If you include the twitter widget.js in your site, this will automatically be re
 
 Configure this plugin in your site's `_config.yml`.
 
-You don't need to configure anything to start using this plugin but if you want to
-use the follow button or profile link, you'll need to add your `profile_id`.
+You don't need to configure anything to start using this plugin but if you want to use the follow button or profile link, you'll need to add your `profile_id`.
 
 To get your `profile_id`, take a section from the url to your profile page `https://www.facebook.com/[profile_id]`.
 
@@ -141,8 +140,10 @@ facebook:
   colorscheme:         light         # Or dark
   kid_directed_site:   false         # Is your site directed at kids under 13?
 
-  share_link_text:     Facebook      # Text for plain-old link
-  profile_link_text:   "Find me on Facebook"
+  share_link_text:     Facebook            # Text for plain-old link
+  share_link_title:    Share on Facebook   # Share link title text
+  profile_link_text:   Friend on Facebook
+  profile_link_title:  Friend on Facebook  # profile link title text
 
   comment_count:       5             # Number of facebook comments to show by default
   comments_link_text:     Comments
@@ -192,17 +193,19 @@ Embed Facebook comments widget:
 
 ## Google+
 
-Configure this plugin in your site's `_config.yml`.
+Configure this plugin in your site's `_config.yml`. The only required configuration is your user id. Here are the defaults.
 
 ```yaml
 gplus:
-  id:                             # Your Google+ userid (for follow button or profile link)
-  size:              medium       # choices: small, medium, standard, large
-  width:                          # Specify width of button
-  share_count:       false        # Show number of shares or +1s
-  follow_count:      false        # Show numer of followers
-  share_link_text:   Google+      # Text for plain-old link
-  profile_link_text: "Follow on Google+"
+  id:                              # Your Google+ userid (for follow button or profile link)
+  size:               medium       # choices: small, medium, standard, large
+  width:                           # Specify width of button
+  share_count:        false        # Show number of shares or +1s
+  follow_count:       false        # Show numer of followers
+  share_link_text:    Google+      # Text for plain-old link
+  share_link_title:   Share on Google+   # Share link title
+  profile_link_text:  Follow on Google+
+  profile_link_title: Follow on Google+  # Profile link title
 ```
 
 These configurations are based on Google's [web sharing widgets](https://developers.google.com/+/web/+1button/).
@@ -230,9 +233,51 @@ Follow tags:
 {% gplus_profile_link %}
 ```
 
+## Email sharing
+
+Add convenient `mail:to` links which which helps readers
+contact you, or share your articles over email.
+
+```yaml
+author:                # Your name
+
+email:
+  address:             # Your contact email
+  share_subject:       :title by :author
+  share_message:       :title by :author - :url
+  share_link_text:     Email
+  contact_link_text:   Email :author
+  contact_link_title:  Email :author
+```
+
+The `share_subject` and `share_message` configurations are
+used to generate a subject and body for a sharing email link.
+
+### Email Tags
+
+```
+{% email_share_link %}    # Share a post or page over email
+{% email_contact_link %}  # Contac the site's author
+```
+
+If you want, you may customize an email subject or message on
+any page or post by setting the `email_share_subject` and
+`email_share_message` variables in the YAML front-matter.
+
+## GitHub
+
+For now, this will just generate a GitHub profile link for you. Perhaps eventually I'll do some cool stuff with the API and project listing. Configure this plugin in your site's `_config.yml`.
+
+```yaml
+github:
+  username:                                  # Your GitHub username
+  profile_link_text:  :username on GitHub
+  profile_link_title: :username on GitHub    # profile link title text
+```
+
 ## Disqus Comments
 
-Configure this plugin in your site's `_config.yml` and optionally on each page or post.
+Configure this plugin in your site's `_config.yml`. The only required configuration is your Disqus shortname. Here are the defaults.
 
 ```yaml
 disqus:

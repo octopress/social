@@ -1,5 +1,6 @@
-require "octopress-social/version"
-require "liquid"
+require 'octopress-social/version'
+require 'liquid'
+require 'erb'
 
 module Octopress
   module Social
@@ -9,6 +10,8 @@ module Octopress
     autoload :Facebook,       'octopress-social/facebook'
     autoload :GooglePlus,     'octopress-social/google-plus'
     autoload :Disqus,         'octopress-social/disqus'
+    autoload :Email,          'octopress-social/email'
+    autoload :GitHub,         'octopress-social/github'
     
     def full_url(site, item)
       unless root = site['url']
@@ -55,6 +58,9 @@ Liquid::Template.register_tag('facebook_comments_link', Octopress::Social::Faceb
 Liquid::Template.register_tag('facebook_script_tag', Octopress::Social::Facebook::Tag)
 Liquid::Template.register_tag('disqus_comments', Octopress::Social::Disqus::Tag)
 Liquid::Template.register_tag('disqus_comments_link', Octopress::Social::Disqus::Tag)
+Liquid::Template.register_tag('email_share_link', Octopress::Social::Email::Tag)
+Liquid::Template.register_tag('email_contact_link', Octopress::Social::Email::Tag)
+Liquid::Template.register_tag('github_profile_link', Octopress::Social::GitHub::Tag)
 
 if defined? Octopress::Docs
   Octopress::Docs.add({

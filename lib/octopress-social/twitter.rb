@@ -6,16 +6,21 @@ module Octopress
       attr_accessor :url, :config
 
       DEFAULTS = {
-        'tweet_message'     => ":title by :username :hashtags - :url",
-        'size'              => 'normal',
-        'tweet_count'       => false,
-        'follow_count'      => false,
-        'tweet_link_text'   => "Twitter",
-        'profile_link_text' => "Follow :username"
+        'tweet_message'       => ":title by :username :hashtags - :url",
+        'size'                => 'normal',
+        'tweet_count'         => false,
+        'follow_count'        => false,
+        'tweet_link_text'     => "Twitter",
+        'tweet_link_title'    => "Share on Twitter",
+        'profile_link_text'   => "Follow :username",
+        'profile_link_title'  => "Follow :username on Twitter",
       }
 
       def set_config(site)
-        @config = DEFAULTS.merge(site['twitter'] || {})
+        @config ||= begin
+          config = site['octopress_social'] || site
+          DEFAULTS.merge(config['twitter'] || {})
+        end
       end
 
       def set_url(site, item)
@@ -23,7 +28,10 @@ module Octopress
       end
 
       def tweet_link(site, item)
-        %Q{<a class="twitter-share-link" href="https://twitter.com/intent/tweet?&text=#{message(site, item).strip.gsub('#', '%23')}" target="_blank">#{config['tweet_link_text']}</a>}
+        %Q{<a 
+          class="twitter-share-link"
+          href="https://twitter.com/intent/tweet?&text=#{ERB::Util.url_encode(message(site, item)).strip}"
+          title="#{config['tweet_link_title']}">#{config['tweet_link_text']}</a>}
       end
 
       def tweet_button(site, item)
@@ -51,6 +59,10 @@ module Octopress
           .join(' ')
       end
 
+      def profile_link_title(item={})
+        config['profile_link_title'].sub(':username', username)
+      end
+
       def message(site, item)
         username_var = (username(item).empty? ? 'by :username' : ':username')
         (item['tweet_message'] || config['tweet_message'])
@@ -70,7 +82,10 @@ module Octopress
       end
 
       def twitter_profile_link(*args)
-        %Q{<a href="https://twitter.com/#{username.sub('@', '')}" class="twitter-follow-link">#{profile_link_text}</a>}
+        %Q{<a
+          class="twitter-profile-link"
+          href="https://twitter.com/#{username.sub('@', '')}"
+          title="#{profile_link_title}">#{profile_link_text}</a>}
       end
 
       def twitter_follow_button(*args)

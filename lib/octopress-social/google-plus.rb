@@ -3,12 +3,16 @@ module Octopress
     module GooglePlus
       extend self
 
+      attr_accessor :url, :config
+
       DEFAULTS = {
-        'size'              => 'medium',
-        'count_bubble'      => false,
-        'share_link_text'   => 'Google+',
-        'profile_link_text' => 'Follow on Google+',
-        'width'             => ''
+        'size'                => 'medium',
+        'count_bubble'        => false,
+        'share_link_text'     => 'Google+',
+        'share_link_title'    => 'Share on Google+',
+        'profile_link_text'   => 'Follow on Google+',
+        'profile_link_title'  => 'Follow on Google+',
+        'width'               => ''
       }
 
       HEIGHT = {
@@ -18,11 +22,17 @@ module Octopress
       }
 
       def config(site=nil)
-        @config ||= DEFAULTS.merge(site['gplus'] || {})
+        @config ||= begin
+          config = site['octopress_social'] || site
+          DEFAULTS.merge(config['gplus'] || {})
+        end
       end
 
       def gplus_share_link(site, item)
-        %Q{<a class="g-plus-share-link" href="https://plus.google.com/share?url=#{Social.full_url(site, item)}" target="_blank">#{config['share_link_text']}</a>}
+        %Q{<a 
+          class="g-plus-share-link"
+          href="https://plus.google.com/share?url=#{Social.full_url(site, item)}"
+          title="#{config['share_link_title']}">#{config['share_link_text']}</a>}
       end
 
       def gplus_one_button(site, item)
@@ -38,7 +48,11 @@ module Octopress
       end
 
       def gplus_profile_link(*args)
-        %Q{<a class="g-plus-profile-link" href="//plus.google.com/u/0/#{config['userid']}">#{config['profile_link_text']}</a>}
+        %Q{<a
+          class="g-plus-profile-link"
+          href="//plus.google.com/u/0/#{config['userid']}"
+          title="#{config['profile_link_title']}"
+          >#{config['profile_link_text']}</a>}
       end
 
       def count(type)
