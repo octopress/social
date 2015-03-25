@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.4.0 (2015-03-24)
+- New: Email sharing and contact tags
+- New: GitHub profile link
+- New: All links now have title attribute set.
+
 ### 1.3.0 (2015-03-21)
 - New: Embeddable tweets with {% tweet %} tag.
 - Fixed: Default tweet message (without configured username) removes 'by' credit.
