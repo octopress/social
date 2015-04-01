@@ -18,7 +18,11 @@ module Octopress
       def set_config(site)
         @config ||= begin
           config = site['octopress_social'] || site
-          DEFAULTS.merge(config['email'] || {})
+          if config['email'] && config['email'].is_a?(String) && config['email'].include?('@')
+            DEFAULTS.merge({'address' => config['email']} || {})
+          else
+            DEFAULTS.merge(config['email'] || {})
+          end
         end
       end
 

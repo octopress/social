@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.4.2 (2015-04-01)
+- Fix: Doesn't break if email address configured as a top level key, e.g. `email: me@example.com`.
+
 ### 1.4.1 (2015-03-24)
 - Fix: Added title attribute for email share link.
 
