@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.4.2 (2015-05-11)
+- Minor: Added UTF-8 encoding headers for better Ruby 1.9 support.
+
 ### 1.4.2 (2015-04-01)
 - Fix: Doesn't break if email address configured as a top level key, e.g. `email: me@example.com`.
 
