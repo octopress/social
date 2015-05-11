@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'octopress-social/version'
 require 'liquid'
 require 'erb'
