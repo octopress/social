@@ -1,6 +1,6 @@
 # Changelog
 
-### 1.4.2 (2015-05-11)
+### 1.4.3 (2015-05-11)
 - Minor: Added UTF-8 encoding headers for better Ruby 1.9 support.
 
 ### 1.4.2 (2015-04-01)
