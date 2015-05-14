@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.4.3 (2015-05-14)
+- Support for Jekyll 2 & 3
+
 ### 1.4.3 (2015-05-11)
 - Minor: Added UTF-8 encoding headers for better Ruby 1.9 support.
 

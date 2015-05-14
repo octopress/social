@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Brandon Mathis"]
   spec.email         = ["brandon@imathis.com"]
   spec.summary       = %q{Easy social network integration for Jekyll sites}
-  spec.description   = %q{Easy social network integration for Jekyll sites}
   spec.homepage      = "http://github.com/octopress/social"
   spec.license       = "MIT"
 
@@ -18,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "jekyll", "~> 2.0"
+  spec.add_runtime_dependency "jekyll", ">= 2.0"
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
