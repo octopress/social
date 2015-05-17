@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.4.5 (2015-05-17)
+- Minor: Fixed unescaped `{% tweet %}` tag in Readme
+
 ### 1.4.4 (2015-05-14)
 - Support for Jekyll 2 & 3
 
