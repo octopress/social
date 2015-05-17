@@ -18,7 +18,7 @@
 - New: All links now have title attribute set.
 
 ### 1.3.0 (2015-03-21)
-- New: Embeddable tweets with {% tweet %} tag.
+- New: Embeddable tweets with `{% tweet %}` tag.
 - Fixed: Default tweet message (without configured username) removes 'by' credit.
 - Fixed: Tweets in post loops shared current page instead of post.
 
