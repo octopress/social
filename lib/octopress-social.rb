@@ -14,6 +14,7 @@ module Octopress
     autoload :Email,          'octopress-social/email'
     autoload :GitHub,         'octopress-social/github'
     autoload :Reddit,         'octopress-social/reddit'
+    autoload :HackerNews,     'octopress-social/hacker-news'
 
     def full_url(site, item)
       unless root = site['url']
@@ -69,6 +70,7 @@ Liquid::Template.register_tag('email_contact_link', Octopress::Social::Email::Ta
 Liquid::Template.register_tag('github_profile_link', Octopress::Social::GitHub::Tag)
 Liquid::Template.register_tag('reddit_share_link', Octopress::Social::Reddit::Tag)
 Liquid::Template.register_tag('reddit_share_url', Octopress::Social::Reddit::Tag)
+Liquid::Template.register_tag('hacker_news_share_link', Octopress::Social::HackerNews::Tag)
 
 if defined? Octopress::Docs
   Octopress::Docs.add({
