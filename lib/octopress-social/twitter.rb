@@ -36,7 +36,7 @@ module Octopress
       end
 
       def tweet_url(site, item)
-        "https://twitter.com/intent/tweet?&text=#{ERB::Util.url_encode(message(site, item)).strip}"
+        "https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode(message(site, item)).strip}"
       end
 
       def tweet_button(site, item)
