@@ -42,12 +42,13 @@ module Octopress
       end
 
       def facebook_share_url(site, item)
+        encoded_url = ERB::Util.url_encode(url)
         if config['app_id']
           "https://www.facebook.com/dialog/share?".
             concat("app_id=#{config['app_id']}").
-            concat("&href=#{url}&redirect_uri=#{url}")
+            concat("&href=#{encoded_url}&redirect_uri=#{encoded_url}")
         else
-          "https://www.facebook.com/sharer/sharer.php?u=#{url}"
+          "https://www.facebook.com/sharer/sharer.php?u=#{encoded_url}"
         end
       end
 

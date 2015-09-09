@@ -38,7 +38,8 @@ module Octopress
 
       def gplus_share_url(site, item)
         url = Social.full_url(site, item)
-        "https://plus.google.com/share?url=#{url}"
+        encoded_url = ERB::Util.url_encode(url)
+        "https://plus.google.com/share?url=#{encoded_url}"
       end
 
       def gplus_one_button(site, item)
