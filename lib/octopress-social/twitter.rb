@@ -29,15 +29,19 @@ module Octopress
       end
 
       def tweet_link(site, item)
-        %Q{<a 
+        %Q{<a
           class="twitter-share-link"
-          href="https://twitter.com/intent/tweet?&text=#{ERB::Util.url_encode(message(site, item)).strip}"
+          href="#{tweet_url(site, item)}"
           title="#{config['tweet_link_title']}">#{config['tweet_link_text']}</a>}
+      end
+
+      def tweet_url(site, item)
+        "https://twitter.com/intent/tweet?&text=#{ERB::Util.url_encode(message(site, item)).strip}"
       end
 
       def tweet_button(site, item)
         %Q{
-          <a href="https://twitter.com/share" class="twitter-share-button" 
+          <a href="https://twitter.com/share" class="twitter-share-button"
           #{'data-size="large"' if config['size'] == 'large'}
           #{'data-count="none"' if !config['tweet_count']}
           data-url="#{url}"

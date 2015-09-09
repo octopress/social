@@ -36,16 +36,18 @@ module Octopress
       end
 
       def facebook_share_link(site, item)
+        %Q{<a class="facebook-share-link"
+        href="#{facebook_share_url(site, item)}"
+        title="#{config['share_link_title']}">#{config['share_link_text']}</a>}
+      end
+
+      def facebook_share_url(site, item)
         if config['app_id']
-          %Q{<a class="facebook-share-link" href="https://www.facebook.com/dialog/share?
-          app_id=#{config['app_id']}
-          &href=#{url}&redirect_uri=#{url}"
-          title="#{config['share_link_title']}">#{config['share_link_text']}</a>
-          }
+          "https://www.facebook.com/dialog/share?".
+            concat("app_id=#{config['app_id']}").
+            concat("&href=#{url}&redirect_uri=#{url}")
         else
-          %Q{<a class="facebook-share-link" 
-          href="https://www.facebook.com/sharer/sharer.php?u=#{url}" 
-          title="#{config['share_link_title']}">#{config['share_link_text']}</a>}
+          "https://www.facebook.com/sharer/sharer.php?u=#{url}"
         end
       end
 
