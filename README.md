@@ -237,6 +237,35 @@ Follow tags:
 {% gplus_profile_link %}
 ```
 
+## Reddit
+
+Configure this plugin in your site's `_config.yml`. No configurations are required. Here are the configuration defaults.
+
+```yaml
+reddit:
+  share_link_text:   Reddit           # Configure the link text
+  share_link_title:  Share on Reddit  # Title of the share link
+  share_title:       :title - :url    # The suggested title auto-filled in the reddit form
+```
+
+To include a custom auto-filled share title for a post or page, include a
+`reddit_share_title` attribute in the frontmatter of the post/page like this:
+
+```yaml
+reddit_share_title: "Totally not click bait! :title - :url"
+```
+
+### Reddit Tags
+
+Sharing tags:
+```
+{% reddit_share_link %}      # Share with a (no js) link
+```
+
+The share button will open a new page with a pre-filled Reddit submission form
+with a title derived from the `share_title` or page/post specific
+`reddit_share_title` configuration discussed above.
+
 ## Email sharing
 
 Add convenient `mail:to` links which which helps readers
