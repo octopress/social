@@ -68,6 +68,7 @@ Liquid::Template.register_tag('email_share_url', Octopress::Social::Email::Tag)
 Liquid::Template.register_tag('email_contact_link', Octopress::Social::Email::Tag)
 Liquid::Template.register_tag('github_profile_link', Octopress::Social::GitHub::Tag)
 Liquid::Template.register_tag('reddit_share_link', Octopress::Social::Reddit::Tag)
+Liquid::Template.register_tag('reddit_share_url', Octopress::Social::Reddit::Tag)
 
 if defined? Octopress::Docs
   Octopress::Docs.add({

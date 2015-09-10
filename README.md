@@ -260,6 +260,7 @@ reddit_share_title: "Totally not click bait! :title - :url"
 Sharing tags:
 ```
 {% reddit_share_link %}      # Share with a (no js) link
+{% reddit_share_url %}       # URL to share with a (no js) link. URL only, no additional HTML markup included.
 ```
 
 The share button will open a new page with a pre-filled Reddit submission form
