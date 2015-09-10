@@ -92,6 +92,7 @@ Sharing tags:
 ```
 {% tweet_button %}
 {% tweet_link %}          # Tweet with a (no js) link
+{% tweet_url %}           # URL to tweet with a (no js) link. URL only, no additional HTML markup included.
 ```
 
 The tweet button and tweet link will open a new page with a composed tweet in the format in your Twitter configuration, `:title by :username - :url :hashtags`. 
@@ -176,6 +177,7 @@ Sharing tags:
 {% facebook_like_button %}
 {% facebook_send_button %}   # For private sharing
 {% facebook_share_link %}    # share with a (no js) link
+{% facebook_share_url %}     # URL to share with a (no js) link. URL only, no additional HTML markup included.
 ```
 
 Friend and Follow tags:
@@ -225,6 +227,7 @@ Sharing tags:
 {% gplus_one_button %}
 {% gplus_share_button %}
 {% gplus_share_link %}   # Share with a (no js) link
+{% gplus_share_url %}    # URL to share with a (no js) link. URL only, no additional HTML markup included.
 ```
 
 Follow tags:
@@ -232,6 +235,62 @@ Follow tags:
 ```
 {% gplus_follow_button %}
 {% gplus_profile_link %}
+```
+
+## Reddit
+
+Configure this plugin in your site's `_config.yml`. No configurations are required. Here are the configuration defaults.
+
+```yaml
+reddit:
+  share_link_text:   Reddit           # Configure the link text
+  share_link_title:  Share on Reddit  # Title of the share link
+  share_title:       :title - :url    # The suggested title auto-filled in the reddit form
+```
+
+To include a custom auto-filled share title for a post or page, include a
+`reddit_share_title` attribute in the frontmatter of the post/page like this:
+
+```yaml
+reddit_share_title: "Totally not click bait! :title - :url"
+```
+
+### Reddit Tags
+
+Sharing tags:
+```
+{% reddit_share_link %}      # Share with a (no js) link
+{% reddit_share_url %}       # URL to share with a (no js) link. URL only, no additional HTML markup included.
+```
+
+The share button will open a new page with a pre-filled Reddit submission form
+with a title derived from the `share_title` or page/post specific
+`reddit_share_title` configuration discussed above.
+
+## Hacker News
+
+Configure this plugin in your site's `_config.yml`. No configurations are required. Here are the configuration defaults.
+
+```yaml
+hacker_news:
+  share_link_text:   Hacker News           # Configure the link text
+  share_link_title:  Share on Hacker News  # Title of the share link
+  share_title:       :title - :url         # The suggested title auto-filled in the Hacker News form
+```
+
+To include a custom auto-filled share title for a post or page, include a
+`hacker_news_share_title` attribute in the frontmatter of the post/page like this:
+
+```yaml
+hacker_news_share_title: "Totally not click bait! :title - :url"
+```
+
+### Hacker News Tags
+
+Sharing tags:
+```
+{% hacker_news_share_link %}      # Share with a (no js) link
+{% hacker_news_share_url %}       # URL to share with a (no js) link. URL only, no additional HTML markup included.
 ```
 
 ## Email sharing
@@ -259,7 +318,8 @@ used to generate a subject and body for a sharing email link.
 
 ```
 {% email_share_link %}    # Share a post or page over email
-{% email_contact_link %}  # Contac the site's author
+{% email_share_url %}     # URL to share a post or page over email with a (no js) link. URL only, no additional HTML markup included.
+{% email_contact_link %}  # Contact the site's author
 ```
 
 If you want, you may customize an email subject or message on

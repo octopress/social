@@ -64,8 +64,12 @@ module Octopress
 
       def email_share_link(site, item)
         %Q{<a class="email-share-link" 
-          href="mailto:?subject=#{subject(site, item)}&body=#{message(site, item)}"
+          href="#{email_share_url(site, item)}"
           title="#{config['share_link_title']}">#{config['share_link_text']}</a>}
+      end
+
+      def email_share_url(site, item)
+        "mailto:?subject=#{subject(site, item)}&body=#{message(site, item)}"
       end
 
       def email_contact_link(site, item)

@@ -30,10 +30,16 @@ module Octopress
       end
 
       def gplus_share_link(site, item)
-        %Q{<a 
+        %Q{<a
           class="g-plus-share-link"
-          href="https://plus.google.com/share?url=#{Social.full_url(site, item)}"
+          href="#{gplus_share_url(site, item)}"
           title="#{config['share_link_title']}">#{config['share_link_text']}</a>}
+      end
+
+      def gplus_share_url(site, item)
+        url = Social.full_url(site, item)
+        encoded_url = ERB::Util.url_encode(url)
+        "https://plus.google.com/share?url=#{encoded_url}"
       end
 
       def gplus_one_button(site, item)
