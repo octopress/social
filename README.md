@@ -267,6 +267,31 @@ The share button will open a new page with a pre-filled Reddit submission form
 with a title derived from the `share_title` or page/post specific
 `reddit_share_title` configuration discussed above.
 
+## Hacker News
+
+Configure this plugin in your site's `_config.yml`. No configurations are required. Here are the configuration defaults.
+
+```yaml
+hacker_news:
+  share_link_text:   Hacker News           # Configure the link text
+  share_link_title:  Share on Hacker News  # Title of the share link
+  share_title:       :title - :url         # The suggested title auto-filled in the Hacker News form
+```
+
+To include a custom auto-filled share title for a post or page, include a
+`hacker_news_share_title` attribute in the frontmatter of the post/page like this:
+
+```yaml
+hacker_news_share_title: "Totally not click bait! :title - :url"
+```
+
+### Hacker News Tags
+
+Sharing tags:
+```
+{% hacker_news_share_link %}      # Share with a (no js) link
+```
+
 ## Email sharing
 
 Add convenient `mail:to` links which which helps readers
