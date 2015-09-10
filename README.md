@@ -92,6 +92,7 @@ Sharing tags:
 ```
 {% tweet_button %}
 {% tweet_link %}          # Tweet with a (no js) link
+{% tweet_url %}           # URL to tweet with a (no js) link. URL only, no additional HTML markup included.
 ```
 
 The tweet button and tweet link will open a new page with a composed tweet in the format in your Twitter configuration, `:title by :username - :url :hashtags`. 
@@ -176,6 +177,7 @@ Sharing tags:
 {% facebook_like_button %}
 {% facebook_send_button %}   # For private sharing
 {% facebook_share_link %}    # share with a (no js) link
+{% facebook_share_url %}     # URL to share with a (no js) link. URL only, no additional HTML markup included.
 ```
 
 Friend and Follow tags:
@@ -225,6 +227,7 @@ Sharing tags:
 {% gplus_one_button %}
 {% gplus_share_button %}
 {% gplus_share_link %}   # Share with a (no js) link
+{% gplus_share_url %}    # URL to share with a (no js) link. URL only, no additional HTML markup included.
 ```
 
 Follow tags:
@@ -259,7 +262,8 @@ used to generate a subject and body for a sharing email link.
 
 ```
 {% email_share_link %}    # Share a post or page over email
-{% email_contact_link %}  # Contac the site's author
+{% email_share_url %}     # URL to share a post or page over email with a (no js) link. URL only, no additional HTML markup included.
+{% email_contact_link %}  # Contact the site's author
 ```
 
 If you want, you may customize an email subject or message on
