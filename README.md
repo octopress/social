@@ -290,6 +290,7 @@ hacker_news_share_title: "Totally not click bait! :title - :url"
 Sharing tags:
 ```
 {% hacker_news_share_link %}      # Share with a (no js) link
+{% hacker_news_share_url %}       # URL to share with a (no js) link. URL only, no additional HTML markup included.
 ```
 
 ## Email sharing
