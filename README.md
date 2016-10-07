@@ -94,7 +94,7 @@ Sharing tags:
 {% tweet_link %}          # Tweet with a (no js) link
 ```
 
-The tweet button and tweet link will open a new page with a composed tweet in the format in your Twitter configuration, `:title by :username - :url :hashtags`. 
+The tweet button and tweet link will open a new page with a composed tweet in the format in your Twitter configuration, `:title by :username - :url :hashtags`.
 
 Follow tags:
 
@@ -119,6 +119,18 @@ This will generate a blockquote, much like this one:
 ```
 
 If you include the twitter widget.js in your site, this will automatically be replaced with one of Twitter's fancy embedded tweets.
+
+You can also provide options to customize the appearance of the tweet.  The full list of available options can be seen in [Twitter's Developer Documentation](https://dev.twitter.com/web/embedded-tweets/parameters).
+
+For example:
+
+```
+{% tweet status_url cards: hidden conversation: none theme: dark %}
+  Tweet Text
+{% endtweet %}
+```
+
+This will generate a blockquote as above, but the fancy embedded tweet will not show any embedded media (`cards: hidden`), will not include any of the conversation that the tweet is part of (`conversation: none`), and will display with light text on a dark background (`theme: dark`).
 
 ## Facebook
 
